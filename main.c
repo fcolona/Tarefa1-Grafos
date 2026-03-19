@@ -51,6 +51,8 @@ int main(){
     }
     printf("\n");
 
+    printf("max neighbors: %d\n", max_neighbors(g));
+
     delete_graph(g);
     //print_matrix(g->matrix, g->num_vertices);
 }
