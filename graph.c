@@ -33,15 +33,19 @@ int add_edge(Graph *graph, int src, int dest, int weigth){
 void print_info(Graph *graph){
     printf("V = [");
     for(int i = 0; i < graph->num_vertices; i++){
-        printf("%d, ", i+1);
+        if(i != graph->num_vertices - 1) printf("%d, ", i+1);
+        else printf("%d", i+1);
     }
     printf("]\n");
 
     printf("E = [");
-    for (int i = 0; i < graph->num_vertices; i++) {
-        for (int j = i; j < graph->num_vertices; j++) { //starts from the diagonal (j = i), because the matrix is symmetric
+    int counter = 0;
+    for (int i = 0; i < graph->num_vertices - 1; i++) {
+        for (int j = i + 1; j < graph->num_vertices; j++) { //starts from the diagonal (j = i + 1), because the matrix is symmetric and the diagonal has no edges
             if(graph->matrix[i][j] != -1){
-                printf("(%d, %d), ", i+1, j+1);
+                if (counter != 0) printf(", ");
+                printf("(%d, %d)", i+1, j+1);
+                counter += 1;
             }
         }
     }
