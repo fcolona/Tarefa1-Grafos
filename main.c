@@ -1,5 +1,6 @@
 #include "graph.h"
 #include <stdio.h>
+#include <stdbool.h>
 
 //aux function
 void print_arr(int *arr, int length){
@@ -21,38 +22,40 @@ void print_matrix(int **matrix, int length){
 }
 
 int main(){
-    Graph *g = construct_graph(8);
+    int option;
+    int N, x, y, w, res;
+    bool print_status = 1;
 
-    add_edge(g, 1, 2, 1);
-    add_edge(g, 1, 3, 4);
-    add_edge(g, 1, 8, 3);
+    Graph *G;
 
-    add_edge(g, 2, 3, 5);
-    add_edge(g, 2, 4, 6);
-    add_edge(g, 2, 8, 2);
+    scanf("%d", &option);
+    while (option != -1) {
+        switch(option){
+            case 0:
+                scanf("%d", &N);
+                G = construct_graph(N);
+                break;
+            case 1:
+                scanf("%d %d %d", &x, &y, &w);
+                add_edge(G, x, y, w);
+                break;
+            case 2:
+                scanf("%d %d", &x, &y);
+                res = exist_edge(G, x, y);
+                print_status = 0;
+                break;
+            default:
+                printf("unrecognized option %d!\n", option);
+        }
 
-    add_edge(g, 3, 5, 8);
-    add_edge(g, 3, 4, 9);
-
-    add_edge(g, 4, 5, 7);
-    add_edge(g, 4, 6, 10);
-
-    printf("does the edge (%d, %d) exist? %d\n", 2, 4, exist_edge(g, 2, 4));
-    printf("does the edge (%d, %d) exist? %d\n", 1, 6, exist_edge(g, 1, 6));
-    
-    print_info(g);
-
-    int *arr = neighbors(g, 1);
-    int i = 0;
-    printf("Neighbors of %d: ", 1);
-    while(arr[i] > 0){
-        printf("%d, ", arr[i]);
-        i++;
+        scanf("%d", &option);
     }
-    printf("\n");
 
-    printf("max neighbors: %d\n", max_neighbors(g));
+    if (print_status) {
+        print_info(G);
+    } else {
+        printf("%d\n", res);
+    }
 
-    delete_graph(g);
-    //print_matrix(g->matrix, g->num_vertices);
+    delete_graph(G);
 }
