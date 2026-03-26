@@ -40,8 +40,8 @@ int main(){
                 scanf("%d", &N);
                 list = neighbors(G, N);
                 print_neighbors(list, G->num_vertices);
-                print_status = 0;
                 free(list);
+                print_status = 0;
                 break;
             default:
                 printf("unrecognized option %d!\n", option);

@@ -57,7 +57,7 @@ int *neighbors(Graph *graph, int vertice) {
 
     int *list = malloc(graph->num_vertices * sizeof(int));
 
-    for (int i = 0; i < graph->num_vertices - 1; i++) {
+    for (int i = 0; i < graph->num_vertices; i++) {
         list[i] = graph->matrix[vertice-1][i];
     }
 
