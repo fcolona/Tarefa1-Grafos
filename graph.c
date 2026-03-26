@@ -52,21 +52,16 @@ void print_info(Graph *graph){
     printf("]\n");
 }
 
-int *neighbors(Graph *graph, int vertice){
+int *neighbors(Graph *graph, int vertice) {
     if(!is_valid_vertice(graph, vertice)) return NULL;
 
-    int *neighbors = (int*) malloc(graph->num_vertices * sizeof(int));
-    memset(neighbors, -1, graph->num_vertices * sizeof(int));
-    int last_index = 0;
+    int *list = malloc(graph->num_vertices * sizeof(int));
 
-    for (int i = 0; i < graph->num_vertices; i++) {
-        if(graph->matrix[vertice-1][i] != -1){
-            neighbors[last_index] = i+1;
-            last_index++;
-        }
+    for (int i = 0; i < graph->num_vertices - 1; i++) {
+        list[i] = graph->matrix[vertice-1][i];
     }
 
-    return neighbors;
+    return list;
 }
 
 int remove_edge(Graph *graph, int src, int dest){

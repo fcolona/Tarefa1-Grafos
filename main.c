@@ -1,29 +1,20 @@
 #include "graph.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <stdbool.h>
 
-//aux function
-void print_arr(int *arr, int length){
+void print_neighbors(int *arr, int length){
     for (int i = 0; i < length; i++) {
-        printf("%d, ", arr[i]);
+        if (arr[i] == -1) continue;
+        printf("%d ", i+1);
     }
     printf("\n");
-}
-
-//aux function
-void print_matrix(int **matrix, int length){
-    for (int i = 0; i < length; i++) {
-        printf("Row %d: ", i);
-        for (int j = 0; j < length; j++) {
-            printf("%d, ", matrix[i][j]);
-        }
-        printf("\n");
-    }
 }
 
 int main(){
     int option;
     int N, x, y, w, res;
+    int *list;
     bool print_status = 1;
 
     Graph *G;
@@ -42,7 +33,15 @@ int main(){
             case 2:
                 scanf("%d %d", &x, &y);
                 res = exist_edge(G, x, y);
+                printf("%d\n", res);
                 print_status = 0;
+                break;
+            case 3:
+                scanf("%d", &N);
+                list = neighbors(G, N);
+                print_neighbors(list, G->num_vertices);
+                print_status = 0;
+                free(list);
                 break;
             default:
                 printf("unrecognized option %d!\n", option);
@@ -53,8 +52,6 @@ int main(){
 
     if (print_status) {
         print_info(G);
-    } else {
-        printf("%d\n", res);
     }
 
     delete_graph(G);
