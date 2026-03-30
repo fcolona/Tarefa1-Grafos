@@ -3,6 +3,19 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+void print_matrix(int **matrix, int n){
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (matrix[i][j] < 100) printf(" ");
+            if (matrix[i][j] < 10)  printf(" ");
+            if (matrix[i][j] == -1) printf("0");
+            else printf("%d", matrix[i][j]);
+            printf(" ");
+        }
+        printf("\n");
+    }
+}
+
 void print_neighbors(int *arr, int length){
     for (int i = 0; i < length; i++) {
         if (arr[i] == -1) continue;
@@ -41,6 +54,20 @@ int main(){
                 list = neighbors(G, N);
                 print_neighbors(list, G->num_vertices);
                 free(list);
+                print_status = 0;
+                break;
+            case 4:
+                scanf("%d %d", &x, &y);
+                res = remove_edge(G, x, y);
+                if (res != 0) {
+                    printf("-1\n");
+                    print_status = 0;
+                }
+                break;
+            case 5:
+                printf("Adjacency Matrix:\n");
+                int **matrix = adjacency_matrix(G);
+                print_matrix(matrix, G->num_vertices);
                 print_status = 0;
                 break;
             default:

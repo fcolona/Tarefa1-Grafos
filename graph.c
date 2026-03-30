@@ -40,11 +40,12 @@ void print_info(Graph *graph){
 
     printf("E = [");
     int counter = 0;
-    for (int i = 0; i < graph->num_vertices - 1; i++) {
-        for (int j = i + 1; j < graph->num_vertices; j++) { //starts from the diagonal (j = i + 1), because the matrix is symmetric and the diagonal has no edges
-            if(graph->matrix[i][j] != -1){
+    // Searches from column (i) to row (j)
+    for (int i = 0; i < graph->num_vertices; i++) {
+        for (int j = 0; j < i + 1; j++) {
+            if(graph->matrix[j][i] != -1){
                 if (counter != 0) printf(", ");
-                printf("(%d, %d)", i+1, j+1);
+                printf("(%d, %d)", j+1, i+1);
                 counter += 1;
             }
         }
@@ -65,7 +66,11 @@ int *neighbors(Graph *graph, int vertice) {
 }
 
 int remove_edge(Graph *graph, int src, int dest){
-    if(!is_valid_vertice(graph, src) || !is_valid_vertice(graph, dest)) return -1;
+    if(!is_valid_vertice(graph, src)
+       || !is_valid_vertice(graph, dest)
+       || graph->matrix[src-1][dest-1] == -1
+       || graph->matrix[dest-1][src-1] == -1)
+        return -1;
 
     graph->matrix[src-1][dest-1] = -1;
     graph->matrix[dest-1][src-1] = -1;
