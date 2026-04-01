@@ -60,7 +60,7 @@ int main(){
                 scanf("%d %d", &x, &y);
                 res = remove_edge(G, x, y);
                 if (res != 0) {
-                    printf("-1\n");
+                    printf("-1");
                     print_status = 0;
                 }
                 break;
@@ -68,6 +68,11 @@ int main(){
                 printf("Adjacency Matrix:\n");
                 int **matrix = adjacency_matrix(G);
                 print_matrix(matrix, G->num_vertices);
+                print_status = 0;
+                break;
+            case 6:
+                res = max_neighbors(G);
+                printf("max vertex: %d\n", res);
                 print_status = 0;
                 break;
             default:

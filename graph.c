@@ -83,6 +83,7 @@ int exist_edge(Graph *graph, int src, int dest){
 
 int max_neighbors(Graph *graph){
     int max = 0;
+    int max_i = 0;
 
     for (int i = 0; i < graph->num_vertices; i++) {
         int counter = 0;
@@ -93,10 +94,14 @@ int max_neighbors(Graph *graph){
             }
         }
 
-        if(counter > max) max = counter;
+        if(counter > max) {
+            max = counter;
+            max_i = i;
+        }
+
     }
 
-    return max;
+    return max_i + 1; // index + 1 as it starts at 0
 }
 
 int **adjacency_matrix(Graph *graph){
